@@ -1,4 +1,17 @@
-# Bandit Environments
+# Thomas' Notes:
+
+The following environments have been added:
+* BanditTwoArmedIndependantUniform-v0: The two independant bandit arms return a reward of 1 with probabilities p1 and p2 ~ U[0,1]
+* BanditTwoArmedDependantUniform-v0: The first arm returns a reward of 1 with probability p ~ U[0,1], the second arm with probability 1-p
+* BanditTwoArmedDependantEasy-v0: The first arm returns a reward of 1 with probability p ~ U{0.1,0.9}, the second arm with probability 1-p
+* BanditTwoArmedDependantMedium-v0: The first arm returns a reward of 1 with probability p ~ U{0.25,0.75}, the second arm with probability 1-p
+* BanditTwoArmedDependantHard-v0: The first arm returns a reward of 1 with probability p ~ U{0.4,0.6}, the second arm with probability 1-p
+* BanditElevenArmedWithIndex: One optimal arm always returns a reward of 5, the other arms a reward of 1. The 11th arm return a reward of 0.1*<Index of the optimal arm>
+
+
+To fit the universe-starter-agent, the observation of the bandits has been modified to [0] (type: gym.spaces.box.Box) instead of 0 (type: gym.spaces.Discrete)
+
+# Bandit Environments (Original README file begins here)
 
 Series of n-armed bandit environments for the OpenAI Gym
 

@@ -127,7 +127,7 @@ class BanditTenArmedGaussian(BanditEnv):
 
         BanditEnv.__init__(self, p_dist=p_dist, r_dist=r_dist)
 
-class BanditTwoArmedIndependantFixed(BanditEnv):
+class BanditTwoArmedIndependantUniform(BanditEnv):
 	"""
 	2 armed bandit giving a reward of 1 with independant probabilities p_1 and p_2
 	"""

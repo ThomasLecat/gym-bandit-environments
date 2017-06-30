@@ -154,7 +154,7 @@ add_task(
 )
 
 add_task(
-    id='BanditTwoArmedIndependantFixed-v0',
+    id='BanditTwoArmedIndependantUniform-v0',
     group='bandits',
     experimental=True,
     contributor='Thomas_Lecat',

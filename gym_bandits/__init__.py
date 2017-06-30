@@ -8,7 +8,7 @@ from .bandit import BanditTwoArmedDeterministicFixed
 from .bandit import BanditTwoArmedHighHighFixed
 from .bandit import BanditTwoArmedHighLowFixed
 from .bandit import BanditTwoArmedLowLowFixed
-from .bandit import BanditTwoArmedIndependantFixed
+from .bandit import BanditTwoArmedIndependantUniform
 from .bandit import BanditTwoArmedDependantUniform
 from .bandit import BanditTwoArmedDependantEasy
 from .bandit import BanditTwoArmedDependantMedium
@@ -23,7 +23,7 @@ environments = [['BanditTenArmedRandomFixed', 'v0'],
                 ['BanditTwoArmedHighHighFixed', 'v0'],
                 ['BanditTwoArmedHighLowFixed', 'v0'],
                 ['BanditTwoArmedLowLowFixed', 'v0'],
-                ['BanditTwoArmedIndependantFixed', 'v0'],
+                ['BanditTwoArmedIndependantUniform', 'v0'],
                 ['BanditTwoArmedDependantUniform','v0'],
                 ['BanditTwoArmedDependantEasy','v0'],
                 ['BanditTwoArmedDependantMedium','v0'],
