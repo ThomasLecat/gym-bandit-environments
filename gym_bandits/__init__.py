@@ -8,11 +8,11 @@ from .bandit import BanditTwoArmedDeterministicFixed
 from .bandit import BanditTwoArmedHighHighFixed
 from .bandit import BanditTwoArmedHighLowFixed
 from .bandit import BanditTwoArmedLowLowFixed
-from .bandit import BanditTwoArmedIndependantUniform
-from .bandit import BanditTwoArmedDependantUniform
-from .bandit import BanditTwoArmedDependantEasy
-from .bandit import BanditTwoArmedDependantMedium
-from .bandit import BanditTwoArmedDependantHard
+from .bandit import BanditTwoArmedIndependentUniform
+from .bandit import BanditTwoArmedDependentUniform
+from .bandit import BanditTwoArmedDependentEasy
+from .bandit import BanditTwoArmedDependentMedium
+from .bandit import BanditTwoArmedDependentHard
 from .bandit import BanditElevenArmedWithIndex
 
 environments = [['BanditTenArmedRandomFixed', 'v0'],
@@ -23,11 +23,11 @@ environments = [['BanditTenArmedRandomFixed', 'v0'],
                 ['BanditTwoArmedHighHighFixed', 'v0'],
                 ['BanditTwoArmedHighLowFixed', 'v0'],
                 ['BanditTwoArmedLowLowFixed', 'v0'],
-                ['BanditTwoArmedIndependantUniform', 'v0'],
-                ['BanditTwoArmedDependantUniform','v0'],
-                ['BanditTwoArmedDependantEasy','v0'],
-                ['BanditTwoArmedDependantMedium','v0'],
-                ['BanditTwoArmedDependantHard','v0'],
+                ['BanditTwoArmedIndependentUniform', 'v0'],
+                ['BanditTwoArmedDependentUniform','v0'],
+                ['BanditTwoArmedDependentEasy','v0'],
+                ['BanditTwoArmedDependentMedium','v0'],
+                ['BanditTwoArmedDependentHard','v0'],
                 ['BanditElevenArmedWithIndex','v0']]
 
 for environment in environments:

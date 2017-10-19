@@ -14,8 +14,12 @@ class BanditEnv(gym.Env):
     r_dist:
         A list of either rewards (if number) or means and standard deviations (if list)
         of the payout that bandit has
+    info:
+        Info about the environment that the agents is not supposed to know. For instance,
+        info can releal the index of the optimal arm, or the value of prior parameter.
+        Can be useful to evaluate the agent's perfomance
     """
-    def __init__(self, p_dist, r_dist):
+    def __init__(self, p_dist, r_dist, info={}):
         if len(p_dist) != len(r_dist):
             raise ValueError("Probability and Reward distribution must be the same length")
 
@@ -28,6 +32,8 @@ class BanditEnv(gym.Env):
 
         self.p_dist = p_dist
         self.r_dist = r_dist
+
+        self.info = info
 
         self.n_bandits = len(p_dist)
         self.action_space = spaces.Discrete(self.n_bandits)
@@ -52,7 +58,7 @@ class BanditEnv(gym.Env):
             else:
                 reward = np.random.normal(self.r_dist[action][0], self.r_dist[action][1])
 
-        return [0], reward, done, {} #
+        return [0], reward, done, self.info #
 
     def _reset(self):
         return [0] #
@@ -60,6 +66,82 @@ class BanditEnv(gym.Env):
     def _render(self, mode='human', close=False):
         pass
 
+
+############### Bandits written by Thomas Lecat #################
+
+class BanditTwoArmedIndependentUniform(BanditEnv):
+	"""
+	2 armed bandit giving a reward of 1 with inDependent probabilities p_1 and p_2
+	"""
+	def __init__(self, bandits=2):
+		p_dist = np.random.uniform(size=bandits)
+		r_dist = np.full(bandits,1)
+
+		BanditEnv.__init__(self, p_dist = p_dist, r_dist=r_dist)
+
+class BanditTwoArmedDependentUniform(BanditEnv):
+    """
+    2 armed bandit giving a reward of 1 with probabilities p_1 ~ U[0,1] and p_2 = 1 - p_1
+    """
+    def __init__(self):
+        p = np.random.uniform()
+        p_dist = [p, 1-p]
+        r_dist = [1, 1]
+        info={'parameter':p}
+        BanditEnv.__init__(self, p_dist = p_dist, r_dist = r_dist, info = info)
+
+class BanditTwoArmedDependentEasy(BanditEnv):
+    """
+    2 armed bandit giving a reward of 1 with probabilities p_1 ~ U[0.1,0.9] and p_2 = 1 - p_1
+    """
+    def __init__(self):
+        p = [0.1,0.9][np.random.randint(0,2)]
+        p_dist = [p, 1-p]
+        r_dist = [1, 1]
+        optimal_arm = np.abs(1-int(round(p)))
+        info = {'optimal_arm':optimal_arm}
+        BanditEnv.__init__(self, p_dist = p_dist, r_dist = r_dist, info=info)
+
+class BanditTwoArmedDependentMedium(BanditEnv):
+    """
+    2 armed bandit giving a reward of 1 with probabilities p_1 ~ U[0.25,0.75] and p_2 = 1 - p_1
+    """
+    def __init__(self):
+        p = [0.25,0.75][np.random.randint(0,2)]
+        p_dist = [p, 1-p]
+        r_dist = [1, 1]
+        optimal_arm = np.abs(1-int(round(p)))
+        info = {'optimal_arm':optimal_arm}
+        BanditEnv.__init__(self, p_dist = p_dist, r_dist = r_dist, info=info)
+
+class BanditTwoArmedDependentHard(BanditEnv):
+    """
+    2 armed bandit giving a reward of 1 with probabilities p_1 ~ U[0.4,0.6] and p_2 = 1 - p_1
+    """
+    def __init__(self):
+        p = [0.4,0.6][np.random.randint(0,2)]
+        p_dist = [p, 1-p]
+        r_dist = [1, 1]
+        optimal_arm = np.abs(1-int(round(p)))
+        info = {'optimal_arm':optimal_arm}
+        BanditEnv.__init__(self, p_dist = p_dist, r_dist = r_dist, info=info)
+
+class BanditElevenArmedWithIndex(BanditEnv):
+    """
+    11 armed bandit: 
+    1 out of the 10 first arms gives a reward of 5 (optimal arm), the 9 other arms give reward of 1.1. The 11th arm gives a reward of 0.1 * index of the optimal arm.
+    """
+    def __init__(self):
+        index = np.random.randint(0,10)
+        p_dist = np.full(11,1)
+        r_dist = np.full(11,1.1)
+        r_dist[index] = 5
+        r_dist[-1] = 0.1*(index+1) # Note: we add 1 because the arms are indexed from 1 to 10, not 0 to 9
+        info = {'optimal_arm':10*index}
+        BanditEnv.__init__(self, p_dist = p_dist, r_dist = r_dist, info=info)
+
+
+###################### Bandits written by Jesse Coopper #########################
 
 class BanditTwoArmedDeterministicFixed(BanditEnv):
     """Simplest case where one bandit always pays, and the other always doesn't"""
@@ -127,64 +209,3 @@ class BanditTenArmedGaussian(BanditEnv):
 
         BanditEnv.__init__(self, p_dist=p_dist, r_dist=r_dist)
 
-class BanditTwoArmedIndependantUniform(BanditEnv):
-	"""
-	2 armed bandit giving a reward of 1 with independant probabilities p_1 and p_2
-	"""
-	def __init__(self, bandits=2):
-		p_dist = np.random.uniform(size=bandits)
-		r_dist = np.full(bandits,1)
-		BanditEnv.__init__(self, p_dist = p_dist, r_dist=r_dist)
-
-class BanditTwoArmedDependantUniform(BanditEnv):
-	"""
-	2 armed bandit giving a reward of 1 with probabilities p_1 ~ U[0,1] and p_2 = 1 - p_1
-	"""
-	def __init__(self):
-		p = np.random.uniform()
-		p_dist = [p, 1-p]
-		r_dist = [1, 1]
-		BanditEnv.__init__(self, p_dist = p_dist, r_dist = r_dist)
-
-class BanditTwoArmedDependantEasy(BanditEnv):
-    """
-    2 armed bandit giving a reward of 1 with probabilities p_1 ~ U[0.1,0.9] and p_2 = 1 - p_1
-    """
-    def __init__(self):
-        p = [0.1,0.9][np.random.randint(0,2)]
-        p_dist = [p, 1-p]
-        r_dist = [1, 1]
-        BanditEnv.__init__(self, p_dist = p_dist, r_dist = r_dist)
-
-class BanditTwoArmedDependantMedium(BanditEnv):
-    """
-    2 armed bandit giving a reward of 1 with probabilities p_1 ~ U[0.25,0.75] and p_2 = 1 - p_1
-    """
-    def __init__(self):
-        p = [0.25,0.75][np.random.randint(0,2)]
-        p_dist = [p, 1-p]
-        r_dist = [1, 1]
-        BanditEnv.__init__(self, p_dist = p_dist, r_dist = r_dist)
-
-class BanditTwoArmedDependantHard(BanditEnv):
-    """
-    2 armed bandit giving a reward of 1 with probabilities p_1 ~ U[0.4,0.6] and p_2 = 1 - p_1
-    """
-    def __init__(self):
-        p = [0.4,0.6][np.random.randint(0,2)]
-        p_dist = [p, 1-p]
-        r_dist = [1, 1]
-        BanditEnv.__init__(self, p_dist = p_dist, r_dist = r_dist)
-
-class BanditElevenArmedWithIndex(BanditEnv):
-	"""
-	11 armed bandit: 
-	1 out of the 10 first arms gives a reward of 5 (optimal arm), the 9 other arms give reward of 1. The 11th arm gives a reward of 0.1 * index of the optimal arm.
-	"""
-	def __init__(self):
-		index = np.random.randint(0,10)
-		p_dist = np.full(11,1)
-		r_dist = np.full(11,1.)
-		r_dist[index] = 5
-		r_dist[-1] = 0.1*(index+1) # Note: we add 1 because the arms are indexed from 1 to 10, not 0 to 9
-		BanditEnv.__init__(self, p_dist = p_dist, r_dist = r_dist)

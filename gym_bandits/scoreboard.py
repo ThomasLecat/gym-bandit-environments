@@ -154,11 +154,11 @@ add_task(
 )
 
 add_task(
-    id='BanditTwoArmedIndependantUniform-v0',
+    id='BanditTwoArmedIndependentUniform-v0',
     group='bandits',
     experimental=True,
     contributor='Thomas_Lecat',
-    summary="Simple two independant armed bandit giving a reward of one with probabilities p_1 and p_2",
+    summary="Simple two independent armed bandit giving a reward of one with probabilities p_1 and p_2",
     description="""
     Each bandit takes in a probability distribution, which is the likelihood of the action paying out,
     and a reward distribution, which is the value or distribution of what the agent will be rewarded
@@ -167,10 +167,10 @@ add_task(
     p_dist = np.random.uniform(2)
     r_dist = [1, 1]
     """,
-    background="For the first experience, called 'Bandit with independant arms' of https://arxiv.org/abs/1611.05763"
+    background="For the first experience, called 'Bandit with independent arms' of https://arxiv.org/abs/1611.05763"
 
 add_task(
-    id='BanditTwoArmedDependantUniform-v0',
+    id='BanditTwoArmedDependentUniform-v0',
     group='bandits',
     experimental=True,
     contributor='Thomas_Lecat',
@@ -184,10 +184,10 @@ add_task(
     p_dist = [p, 1-p]
     r_dist = [1, 1]
     """,
-    background="For the experience called 'Bandits with dependant arms (I)' of https://arxiv.org/abs/1611.05763"
+    background="For the experience called 'Bandits with dependent arms (I)' of https://arxiv.org/abs/1611.05763"
 
 add_task(
-    id='BanditTwoArmedDependantEasy-v0',
+    id='BanditTwoArmedDependentEasy-v0',
     group='bandits',
     experimental=True,
     contributor='Thomas_Lecat',
@@ -201,10 +201,10 @@ add_task(
     p_dist = [p, 1-p]
     r_dist = [1, 1]
     """,
-    background="For the experience called 'Bandits with dependant arms (I)' of https://arxiv.org/abs/1611.05763"
+    background="For the experience called 'Bandits with dependent arms (I)' of https://arxiv.org/abs/1611.05763"
 
 add_task(
-    id='BanditTwoArmedDependantMedium-v0',
+    id='BanditTwoArmedDependentMedium-v0',
     group='bandits',
     experimental=True,
     contributor='Thomas_Lecat',
@@ -218,10 +218,10 @@ add_task(
     p_dist = [p, 1-p]
     r_dist = [1, 1]
     """,
-    background="For the experience called 'Bandits with dependant arms (I)' of https://arxiv.org/abs/1611.05763"
+    background="For the experience called 'Bandits with dependent arms (I)' of https://arxiv.org/abs/1611.05763"
 
 add_task(
-    id='BanditTwoArmedDependantHard-v0',
+    id='BanditTwoArmedDependentHard-v0',
     group='bandits',
     experimental=True,
     contributor='Thomas_Lecat',
@@ -235,14 +235,17 @@ add_task(
     p_dist = [p, 1-p]
     r_dist = [1, 1]
     """,
-    background="For the experience called 'Bandits with dependant arms (I)' of https://arxiv.org/abs/1611.05763"
+    background="For the experience called 'Bandits with dependent arms (I)' of https://arxiv.org/abs/1611.05763"
 
     add_task(
     id='BanditEleveArmedWithIndex-v0',
     group='bandits',
     experimental=True,
     contributor='Thomas_Lecat',
-    summary="11 armed bandit with deterministic payouts. Nine 'non-target' arms have reward -1, one 'target' arm has reward -5, the 11th arm has reward = 0.1 * index of the target arm",
+    summary="11 armed bandit with deterministic payouts. \
+        Nine 'non-target' return a reward of 1.1, \
+        one 'target' returns a reward of 5, \
+        the 11th arm has reward = 0.1 * index of the target arm (ranging from 0.1 to 1.0)",
     description="""
     Each bandit takes in a probability distribution, which is the likelihood of the action paying out,
     and a reward distribution, which is the value or distribution of what the agent will be rewarded
@@ -250,9 +253,9 @@ add_task(
 
     index = np.random.randint(0,10)
     p_dist = np.full(11,1)
-    r_dist = np.full(11,1.)
+    r_dist = np.full(11,1.1)
     r_dist[index] = 5
     r_dist[-1] = 0.1*index
     BanditEnv.__init__(self, p_dist = p_dist, r_dist = r_dist)
     """,
-    background="For the experience called 'Bandits with dependant arms (II)' of https://arxiv.org/abs/1611.05763"
+    background="For the experience called 'Bandits with dependent arms (II)' of https://arxiv.org/abs/1611.05763"
