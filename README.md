@@ -49,7 +49,7 @@ Other environments:
 
 ### Installation
 ```
-git clone git@github.com:JKCooper2/gym-bandits.git
+git clone git@github.com:ThomasLecat/gym-bandits-environments.git
 cd gym-bandits
 pip install -e .
 ```
