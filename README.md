@@ -22,6 +22,8 @@ your weights against the true values for plotting results of various algorithms
 
 To fit the universe-starter-agent, the observation of the bandits has been modified from 0 (type: gym.spaces.Discrete) to [0] (type: gym.spaces.box.Box).
 
+Some of the environments return pieces of information regarding the arms. For example: the index of the optimal arm or the value of a parameter.
+
 ### List of Environments
 
 New in this repository:

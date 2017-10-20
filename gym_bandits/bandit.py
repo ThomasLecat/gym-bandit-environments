@@ -128,7 +128,7 @@ class BanditTwoArmedDependentHard(BanditEnv):
 
 class BanditElevenArmedWithIndex(BanditEnv):
     """
-    11 armed bandit: 
+    11 armed bandit:
     1 out of the 10 first arms gives a reward of 5 (optimal arm), the 9 other arms give reward of 1.1. The 11th arm gives a reward of 0.1 * index of the optimal arm.
     """
     def __init__(self):
@@ -146,25 +146,25 @@ class BanditElevenArmedWithIndex(BanditEnv):
 class BanditTwoArmedDeterministicFixed(BanditEnv):
     """Simplest case where one bandit always pays, and the other always doesn't"""
     def __init__(self):
-        BanditEnv.__init__(self, p_dist=[1, 0], r_dist=[1, 1])
+        BanditEnv.__init__(self, p_dist=[1, 0], r_dist=[1, 1], info={'optimal_arm':1})
 
 
 class BanditTwoArmedHighLowFixed(BanditEnv):
     """Stochastic version with a large difference between which bandit pays out of two choices"""
     def __init__(self):
-        BanditEnv.__init__(self, p_dist=[0.8, 0.2], r_dist=[1, 1])
+        BanditEnv.__init__(self, p_dist=[0.8, 0.2], r_dist=[1, 1], info={'optimal_arm':1})
 
 
 class BanditTwoArmedHighHighFixed(BanditEnv):
     """Stochastic version with a small difference between which bandit pays where both are good"""
     def __init__(self):
-        BanditEnv.__init__(self, p_dist=[0.8, 0.9], r_dist=[1, 1])
+        BanditEnv.__init__(self, p_dist=[0.8, 0.9], r_dist=[1, 1], info='optimal_arm':2)
 
 
 class BanditTwoArmedLowLowFixed(BanditEnv):
     """Stochastic version with a small difference between which bandit pays where both are bad"""
     def __init__(self):
-        BanditEnv.__init__(self, p_dist=[0.1, 0.2], r_dist=[1, 1])
+        BanditEnv.__init__(self, p_dist=[0.1, 0.2], r_dist=[1, 1], info='optimal_arm':2)
 
 
 class BanditTenArmedRandomFixed(BanditEnv):
@@ -208,4 +208,3 @@ class BanditTenArmedGaussian(BanditEnv):
             r_dist.append([np.random.normal(0, 1), 1])
 
         BanditEnv.__init__(self, p_dist=p_dist, r_dist=r_dist)
-
