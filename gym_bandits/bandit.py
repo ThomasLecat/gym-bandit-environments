@@ -158,13 +158,13 @@ class BanditTwoArmedHighLowFixed(BanditEnv):
 class BanditTwoArmedHighHighFixed(BanditEnv):
     """Stochastic version with a small difference between which bandit pays where both are good"""
     def __init__(self):
-        BanditEnv.__init__(self, p_dist=[0.8, 0.9], r_dist=[1, 1], info='optimal_arm':2)
+        BanditEnv.__init__(self, p_dist=[0.8, 0.9], r_dist=[1, 1], info={'optimal_arm':2})
 
 
 class BanditTwoArmedLowLowFixed(BanditEnv):
     """Stochastic version with a small difference between which bandit pays where both are bad"""
     def __init__(self):
-        BanditEnv.__init__(self, p_dist=[0.1, 0.2], r_dist=[1, 1], info='optimal_arm':2)
+        BanditEnv.__init__(self, p_dist=[0.1, 0.2], r_dist=[1, 1], info={'optimal_arm':2})
 
 
 class BanditTenArmedRandomFixed(BanditEnv):
